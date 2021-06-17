@@ -13,4 +13,12 @@ public class LocationParser {
             throw new NumberFormatException("Nem megfelelő lat vagy lon formátum");
         }
     }
+
+    public boolean isOnEquator(Location location) {
+        return location.getLat() == 0;
+    }
+
+    public boolean isOnPrimeMeridian(Location location) {
+        return location.getLon() == 0;
+    }
 }
