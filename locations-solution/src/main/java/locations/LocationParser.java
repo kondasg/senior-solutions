@@ -10,7 +10,7 @@ public class LocationParser {
         try {
             return new Location(splittedText[0], Double.parseDouble(splittedText[1]), Double.parseDouble(splittedText[2]));
         } catch (NumberFormatException ne) {
-            throw new NumberFormatException("Nem megfelelő lat vagy lon formátum");
+            throw new NumberFormatException("Nem megfelelő lat vagy lon formátum!");
         }
     }
 
