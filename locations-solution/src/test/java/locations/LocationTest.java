@@ -50,7 +50,7 @@ public class LocationTest {
     }
 
     @Test
-    @DisplayName("Test that the point is on the equator\n")
+    @DisplayName("Test that the point is on the equator")
     void testIsOnEquator() {
         assertTrue(locationParser.isOnEquator(new Location("Budapest", 0, 19.040235)));
         assertFalse(locationParser.isOnEquator(new Location("Budapest", 47.497912, 19.040235)));
