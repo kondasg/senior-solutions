@@ -36,6 +36,6 @@ public class LocationParameterizedTest {
     void testDistanceFromCsvFile(String lat1, String lon1, String lat2, String lon2, double distance) {
         Location location1 = locationParser.parse("," + lat1 + "," + lon1);
         Location location2 = locationParser.parse("," + lat2 + "," + lon2);
-        assertEquals(distance, location1.distanceFrom(location2) * 1000, 0.1);
+        assertEquals(distance / 1000, location1.distanceFrom(location2), 0.1);
     }
 }

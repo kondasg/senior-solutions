@@ -15,7 +15,7 @@ public class LocationRepeatedTest {
             {new Location("p3", 0, 19.040235), true},
             {new Location("p4", 47.497912, 19.040235), false},
             {new Location("p5", 0, 21), true},
-            {new Location("p6", 47.497912, 19.040235), false},
+            {new Location("p6", 47.497912, 19.040235), false}
     };
 
     @RepeatedTest(value = 6, name = "Get the point is on the equator {currentRepetition}/{totalRepetitions}")
