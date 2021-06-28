@@ -1,9 +1,9 @@
 package locations;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LocationService {
@@ -24,6 +24,28 @@ public class LocationService {
             }
         } catch (IOException ioe) {
             throw new IllegalStateException("Can't write file", ioe);
+        }
+    }
+
+    public List<Location> readLocations(Path file) {
+        List<Location> result = new ArrayList<>();
+        try (BufferedReader reader = Files.newBufferedReader(file)) {
+            readLines(result, reader);
+        } catch (IOException ioe) {
+            throw new IllegalStateException("Can't read file", ioe);
+        }
+        return result;
+    }
+
+    private void readLines(List<Location> result, BufferedReader reader) throws IOException {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] splittedLine = line.split(",");
+            result.add(new Location(
+                    splittedLine[0],
+                    Double.parseDouble(splittedLine[1]),
+                    Double.parseDouble(splittedLine[2]))
+            );
         }
     }
 }
