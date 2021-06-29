@@ -1,6 +1,6 @@
 package locations;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -13,7 +13,7 @@ public class LocationServiceTestWithHamcrest {
     LocationService locationService = new LocationService();
 
     @Test
-    public void readLocationsTest() {
+    void readLocationsTest() {
         List<Location> locations =
                 locationService.readLocations(Path.of("src/test/java/resources/locations.csv"));
 
