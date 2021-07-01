@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping("/locations")
 public class LocationsController {
 
-    LocationsService locationsService;
+    private LocationsService locationsService;
 
     public LocationsController(LocationsService locationsService) {
         this.locationsService = locationsService;
