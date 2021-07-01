@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -22,8 +23,8 @@ class LocationsControllerTest {
 
     @Test
     void getLocations() {
-        when(locationsService.getLocations()).thenReturn(List.of(new LocationDto(), new LocationDto()));
-        List<LocationDto> l = locationsController.getLocations();
+        when(locationsService.getLocations(Optional.empty())).thenReturn(List.of(new LocationDto(), new LocationDto()));
+        List<LocationDto> l = locationsController.getLocations(Optional.empty());
         assertEquals(2, l.size());
     }
 }
