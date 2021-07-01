@@ -4,19 +4,19 @@ Kérlek jelöld be, hogy melyik gyakorlati feladatokat oldottad meg!
 
 * [ ] Bevezetés a Spring Framework és Spring Boot használatába
 * [x] Bevezetés a Spring Boot használatába
-* [ ] Spring Beanek
+* [x] Spring Beanek
 * [ ] Konfiguráció Javaban
-* [ ] Build és futtatás Mavennel
+* [x] Build és futtatás Mavennel
 * [ ] Build és futtatás Gradle használatával
-* [ ] Unit és integrációs tesztek
+* [x] Unit és integrációs tesztek
 * [ ] Developer Tools
-* [ ] Twelve Factor App
-* [ ] Bevezetés a Docker használatába
+* [x] Twelve Factor App
+* [x] Bevezetés a Docker használatába
 * [ ] Java alkalmazások Dockerrel
 * [ ] Docker Layers
-* [ ] Feltöltés GIT repository-ba
-* [ ] REST webszolgáltatások - GET művelet
-* [ ] GET műveletek paraméterezése
+* [x] Feltöltés GIT repository-ba
+* [x] REST webszolgáltatások - GET művelet
+* [x] GET műveletek paraméterezése
 * [ ] REST webszolgáltatások POST és DELETE művelet
 * [ ] Státuszkódok és hibakezelés
 * [ ] Integrációs tesztelés
