@@ -14,4 +14,8 @@ public class Location {
     private double lat;
     private double lon;
 
+    public Location(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

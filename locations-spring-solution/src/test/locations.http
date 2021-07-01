@@ -1,0 +1,26 @@
+GET http://localhost:8080/locations/
+Accept: application/json
+
+###
+
+POST http://localhost:8080/locations
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name" : "Pont 3"
+}
+
+###
+
+PUT http://localhost:8080/locations/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name" : "Pont 1",
+  "lat" : 48.4321,
+  "lon" : 18.1111
+}
+
+

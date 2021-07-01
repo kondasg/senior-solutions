@@ -40,4 +40,21 @@ public class LocationsService {
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException("not found")), LocationDto.class);
     }
+
+    public LocationDto createLocation(CreateLocationCommand command) {
+        Location location = new Location(idGenerator.incrementAndGet(), command.getName());
+        locations.add(location);
+        return modelMapper.map(location, LocationDto.class);
+    }
+
+    public LocationDto updateLocation(long id, UpdateLocationCommand command) {
+        Location location = locations.stream()
+                .filter(l -> l.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("not found"));
+        location.setName(command.getName());
+        location.setLat(command.getLat());
+        location.setLon(command.getLon());
+        return modelMapper.map(location, LocationDto.class);
+    }
 }
