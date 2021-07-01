@@ -23,4 +23,7 @@ Accept: application/json
   "lon" : 18.1111
 }
 
+###
 
+DELETE http://localhost:8080/locations/2
+Content-Type: application/json
