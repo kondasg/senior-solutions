@@ -27,7 +27,8 @@ public class LocationsService {
     }
 
     public List<LocationDto> getLocations(Optional<String> name) {
-        Type tagetListType = new TypeToken<List<LocationDto>>(){}.getType();
+        Type tagetListType = new TypeToken<List<LocationDto>>() {
+        }.getType();
         List<Location> filtered = locations.stream()
                 .filter(l -> name.isEmpty() || l.getName().equalsIgnoreCase(name.get()))
                 .collect(Collectors.toList());
@@ -38,7 +39,7 @@ public class LocationsService {
         return modelMapper.map(locations.stream()
                 .filter(l -> l.getId() == id)
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("not found")), LocationDto.class);
+                .orElseThrow(() -> new LocationNotFoundException("not found")), LocationDto.class);
     }
 
     public LocationDto createLocation(CreateLocationCommand command) {
@@ -51,7 +52,7 @@ public class LocationsService {
         Location location = locations.stream()
                 .filter(l -> l.getId() == id)
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("not found"));
+                .orElseThrow(() -> new LocationNotFoundException("not found"));
         location.setName(command.getName());
         location.setLat(command.getLat());
         location.setLon(command.getLon());

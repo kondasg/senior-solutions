@@ -3,6 +3,11 @@ Accept: application/json
 
 ###
 
+GET http://localhost:8080/locations/5
+Accept: application/json
+
+###
+
 POST http://localhost:8080/locations
 Content-Type: application/json
 Accept: application/json
@@ -26,4 +31,4 @@ Accept: application/json
 ###
 
 DELETE http://localhost:8080/locations/2
-Content-Type: application/json
+
