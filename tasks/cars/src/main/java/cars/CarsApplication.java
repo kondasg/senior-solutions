@@ -1,7 +1,9 @@
 package cars;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class CarsApplication {
@@ -10,4 +12,8 @@ public class CarsApplication {
         SpringApplication.run(CarsApplication.class, args);
     }
 
+    @Bean
+    public ModelMapper getMoellmapper() {
+        return new ModelMapper();
+    }
 }

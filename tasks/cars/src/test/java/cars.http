@@ -1,0 +1,14 @@
+GET http://localhost:8080
+Accept: application/json
+
+###
+
+GET http://localhost:8080/cars
+Accept: application/json
+
+###
+
+GET http://localhost:8080/types
+Accept: application/json
+
+###
