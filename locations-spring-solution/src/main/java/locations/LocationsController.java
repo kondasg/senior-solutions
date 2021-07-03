@@ -1,5 +1,6 @@
 package locations;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +23,13 @@ public class LocationsController {
     }
 
     @GetMapping
+    @Operation(summary = "Get locations", description = "Get locations")
     public List<LocationDto> getLocations(@RequestParam Optional<String> name) {
         return locationsService.getLocations(name);
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Find location by id", description = "Find location by id")
     public LocationDto findLocationById(@PathVariable("id") long id) {
         return locationsService.findLocationById(id);
     }
