@@ -13,7 +13,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "name" : "Pont 3"
+  "name" : ""
 }
 
 ###
@@ -24,8 +24,8 @@ Accept: application/json
 
 {
   "name" : "Pont 1",
-  "lat" : 48.4321,
-  "lon" : 18.1111
+  "lat" : 148.4321,
+  "lon" : 1118.1111
 }
 
 ###
