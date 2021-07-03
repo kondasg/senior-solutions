@@ -66,4 +66,9 @@ public class LocationsService {
                 .orElseThrow(() -> new IllegalArgumentException("not found"));
         locations.remove(location);
     }
+
+    public void deleteAllLocations() {
+        idGenerator = new AtomicLong();
+        locations.clear();
+    }
 }
