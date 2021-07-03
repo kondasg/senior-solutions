@@ -1,0 +1,26 @@
+###
+
+POST http://localhost:8080/api/instruments
+Content-Type: application/json
+Accept: application/json
+
+{
+  "brand" : "Fender",
+  "type" : "ELECTRIC_GUITAR",
+  "price" : "2000"
+}
+
+###
+
+GET http://localhost:8080/api/instruments
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/instruments/1
+Accept: application/json
+
+###
+
+DELETE http://localhost:8080/api/instruments
+
