@@ -10,7 +10,7 @@
             <property name="javax.persistence.jdbc.password" value="sWRAiZGCTAGY"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3307/csxxdg_t360"/>
             <property name="hibernate.show_sql" value="true"/>
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+<!--            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>-->
         </properties>
     </persistence-unit>
 </persistence>
