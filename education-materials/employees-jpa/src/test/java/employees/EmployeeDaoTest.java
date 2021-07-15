@@ -9,6 +9,7 @@ import org.mariadb.jdbc.MariaDbDataSource;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,15 +21,15 @@ class EmployeeDaoTest {
 
     @BeforeEach
     void init() throws SQLException {
-        MariaDbDataSource dataSource = new MariaDbDataSource();
-        dataSource.setUrl("jdbc:mariadb://localhost:3307/csxxdg_t360?useUnicode=true");
-        dataSource.setUser("csxxdg_t360");
-        dataSource.setPassword("sWRAiZGCTAGY");
+//        MariaDbDataSource dataSource = new MariaDbDataSource();
+//        dataSource.setUrl("jdbc:mariadb://localhost:3307/csxxdg_t360?useUnicode=true");
+//        dataSource.setUser("csxxdg_t360");
+//        dataSource.setPassword("sWRAiZGCTAGY");
 
-        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
-
-        flyway.clean();
-        flyway.migrate();
+//        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
+//
+//        flyway.clean();
+//        flyway.migrate();
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pu");
         employeeDao = new EmployeeDao(entityManagerFactory);
@@ -81,5 +82,13 @@ class EmployeeDaoTest {
 
         List<Employee> employees = employeeDao.listAll();
         assertTrue(employees.isEmpty());
+    }
+
+    @Test
+    void employeeWithAttributesTest() {
+        employeeDao.save(new Employee("John Doe",
+                Employee.EmployeeType.FULL_TIME, LocalDate.of(2000, 1, 1)));
+        Employee employee = employeeDao.listAll().get(0);
+        assertEquals(LocalDate.of(2000, 1, 1), employee.getDateOfBirth());
     }
 }
