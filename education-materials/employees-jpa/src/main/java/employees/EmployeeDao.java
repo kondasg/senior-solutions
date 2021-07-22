@@ -20,9 +20,9 @@ public class EmployeeDao {
         entityManager.close();
     }
 
-    public Employee findById(long id) {
+    public Employee findById(String depName, Long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Employee employee = entityManager.find(Employee.class, id);
+        Employee employee = entityManager.find(Employee.class, new EmployeeId(depName, id));
         entityManager.close();
         return employee;
     }
@@ -35,19 +35,19 @@ public class EmployeeDao {
         return employees;
     }
 
-    public void changeName(long id, String name) {
+    public void changeName(String depName, long id, String name) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Employee employee = entityManager.find(Employee.class, id);
+        Employee employee = entityManager.find(Employee.class, new EmployeeId(depName, id));
         employee.setName(name);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
-    public void deleteById(long id) {
+    public void deleteById(String depName, long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Employee employee = entityManager.getReference(Employee.class, id);
+        Employee employee = entityManager.getReference(Employee.class, new EmployeeId(depName, id));
         entityManager.remove(employee);
         entityManager.getTransaction().commit();
         entityManager.close();

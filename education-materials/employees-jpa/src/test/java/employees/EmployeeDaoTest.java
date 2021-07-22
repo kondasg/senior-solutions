@@ -37,20 +37,20 @@ class EmployeeDaoTest {
 
     @Test
     void saveTest() {
-        Employee employee = new Employee("John Doe");
+        Employee employee = new Employee("x", 1L, "John Doe");
         employeeDao.save(employee);
 
         long id = employee.getId();
 
-        Employee another = employeeDao.findById(id);
+        Employee another = employeeDao.findById("x", 1L);
         assertEquals("John Doe", another.getName());
     }
 
     @Test
     void listtAllTest() {
-        employeeDao.save(new Employee("John Doe"));
-        employeeDao.save(new Employee("Jack Doe"));
-        employeeDao.save(new Employee("Jane Doe"));
+        employeeDao.save(new Employee("x", 1L, "John Doe"));
+        employeeDao.save(new Employee("y", 2L, "Jack Doe"));
+        employeeDao.save(new Employee("z", 3L, "Jane Doe"));
 
         List<Employee> employees = employeeDao.listAll();
 
@@ -60,25 +60,25 @@ class EmployeeDaoTest {
 
     @Test
     void changeNameTest() {
-        Employee employee = new Employee("John Doe");
+        Employee employee = new Employee("x", 1L, "John Doe");
         employeeDao.save(employee);
 
         long id = employee.getId();
 
-        employeeDao.changeName(id, "Géza");
+        employeeDao.changeName("x", 1L, "Géza");
 
-        Employee another = employeeDao.findById(id);
+        Employee another = employeeDao.findById("x", 1L);
         assertEquals("Géza", another.getName());
     }
 
     @Test
     void deleteTest() {
-        Employee employee = new Employee("John Doe");
+        Employee employee = new Employee("x", 1L, "John Doe");
         employeeDao.save(employee);
 
         long id = employee.getId();
 
-        employeeDao.deleteById(id);
+        employeeDao.deleteById("x", 1L);
 
         List<Employee> employees = employeeDao.listAll();
         assertTrue(employees.isEmpty());
@@ -86,7 +86,7 @@ class EmployeeDaoTest {
 
     @Test
     void employeeWithAttributesTest() {
-        employeeDao.save(new Employee("John Doe",
+        employeeDao.save(new Employee("x", 1L, "John Doe",
                 Employee.EmployeeType.FULL_TIME, LocalDate.of(2000, 1, 1)));
         Employee employee = employeeDao.listAll().get(0);
         assertEquals(LocalDate.of(2000, 1, 1), employee.getDateOfBirth());
