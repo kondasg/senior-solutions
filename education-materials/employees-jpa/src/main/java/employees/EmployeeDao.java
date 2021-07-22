@@ -52,4 +52,31 @@ public class EmployeeDao {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
+    public void updateEmployee(Employee employee) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Employee merged = entityManager.merge(employee);
+
+        merged.setName("***" + employee.getName());
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
+    public void updateEmpleyeeNames() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        List<Employee> employees = entityManager.createQuery("SELECT e FROM Employee e ORDER BY e.name", Employee.class)
+                .getResultList();
+
+        entityManager.getTransaction().begin();
+        for (Employee employee: employees) {
+            employee.setName(employee.getName() + "***");
+            System.out.println("Modositva");
+            entityManager.flush();
+        }
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
 }
