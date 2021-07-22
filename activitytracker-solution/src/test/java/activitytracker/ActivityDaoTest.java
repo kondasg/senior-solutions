@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ActivityDaoTest {
 
@@ -59,5 +61,26 @@ class ActivityDaoTest {
 
         List<Activity> activities = activityDao.listActivities();
         assertEquals(3, activities.size());
+    }
+
+    @Test
+    void updateActivityTest() {
+        Activity activity = new Activity(LocalDateTime.of(2000, 1, 1, 10, 0, 0),
+                "Biciklizés újév napján", Activity.ActivityType.BIKING);
+        activityDao.saveActivity(activity);
+        LocalDateTime createdAt = activity.getCreatedAt();
+        long id = activity.getId();
+
+        String modifyDescription = "Módosított szöveg";
+        Activity activityUpdated = activityDao.updateActivity(id, modifyDescription);
+        LocalDateTime updatedAt = activityUpdated.getUpdatedAt();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+
+        Activity modActivity = activityDao.findActivityById(id);
+
+        assertEquals(createdAt.format(formatter), modActivity.getCreatedAt().toString());
+        assertEquals(modifyDescription, modActivity.getDesc());
+        assertEquals(updatedAt.format(formatter), modActivity.getUpdatedAt().toString());
     }
 }

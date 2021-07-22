@@ -24,6 +24,9 @@ public class Activity {
     @Column(nullable = false, length = 20)
     private ActivityType type;
 
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
     public Activity() {
     }
 
@@ -31,6 +34,16 @@ public class Activity {
         this.startTime = startTime;
         this.desc = desc;
         this.type = type;
+    }
+
+    @PrePersist
+    public void createDate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void updateDate() {
+        updatedAt = LocalDateTime.now();
     }
 
     public long getId() {
@@ -64,4 +77,21 @@ public class Activity {
     public void setType(ActivityType type) {
         this.type = type;
     }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
 }
