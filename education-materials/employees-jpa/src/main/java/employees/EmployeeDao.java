@@ -26,6 +26,41 @@ public class EmployeeDao {
         entityManager.close();
         return employee;
     }
+    public Employee findByIdWithNickNams(String depName, Long id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Employee employee = entityManager
+                .createQuery("SELECT e FROM Employee e JOIN FETCH e.nickNames WHERE e.id = :id AND e.depName = :depName",
+                        Employee.class)
+                .setParameter("id", id )
+                .setParameter("depName", depName )
+                .getSingleResult();
+        entityManager.close();
+        return employee;
+    }
+
+    public Employee findByIdWithVacations(String depName, Long id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Employee employee = entityManager
+                .createQuery("SELECT e FROM Employee e JOIN FETCH e.vacationBookings WHERE e.id = :id AND e.depName = :depName",
+                        Employee.class)
+                .setParameter("id", id )
+                .setParameter("depName", depName )
+                .getSingleResult();
+        entityManager.close();
+        return employee;
+    }
+
+    public Employee findByIdWithPhone(String depName, Long id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Employee employee = entityManager
+                .createQuery("SELECT e FROM Employee e JOIN FETCH e.phoneNumber WHERE e.id = :id AND e.depName = :depName",
+                        Employee.class)
+                .setParameter("id", id )
+                .setParameter("depName", depName )
+                .getSingleResult();
+        entityManager.close();
+        return employee;
+    }
 
     public List<Employee> listAll() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -79,4 +114,7 @@ public class EmployeeDao {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+
+
+
 }

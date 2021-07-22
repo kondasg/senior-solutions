@@ -11,6 +11,8 @@ import javax.persistence.Persistence;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -121,5 +123,40 @@ class EmployeeDaoTest {
             employeeDao.save(new Employee("x", i, "John Doe" + i));
         }
         employeeDao.updateEmpleyeeNames();
+    }
+
+    @Test
+    void testNickNanes() {
+        Employee employee = new Employee("x", 1L, "Jon Doe");
+        employee.setNickNames(Set.of("Johny", "J"));
+        employeeDao.save(employee);
+
+        Employee anotherEmployee = employeeDao.findByIdWithNickNams(employee.getDepName(), employee.getId());
+        assertEquals(Set.of("Johny", "J"), anotherEmployee.getNickNames());
+    }
+
+    @Test
+    void testVac() {
+        Employee employee = new Employee("x", 1L, "John Doe");
+        employee.setVacationBookings(Set.of(
+                new VacationEntry(LocalDate.of(2021, 1, 1), 10),
+                new VacationEntry(LocalDate.of(2021, 3, 11), 4)
+        ));
+        employeeDao.save(employee);
+
+        Employee anotherEmployee = employeeDao.findByIdWithVacations(employee.getDepName(), employee.getId());
+        assertEquals(2, anotherEmployee.getVacationBookings().size());
+        System.out.println(anotherEmployee.getVacationBookings());
+    }
+
+    @Test
+    void testPhone() {
+        Employee employee = new Employee("x", 1L, "John Doe");
+        employee.setPhoneNumber(Map.of("home", "1234", "work", "4567"));
+        employeeDao.save(employee);
+
+        Employee anotherEmployee = employeeDao.findByIdWithPhone(employee.getDepName(), employee.getId());
+        assertEquals(2, anotherEmployee.getPhoneNumber().size());
+        System.out.println(anotherEmployee.getPhoneNumber());
     }
 }

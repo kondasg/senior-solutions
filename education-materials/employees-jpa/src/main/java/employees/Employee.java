@@ -2,6 +2,8 @@ package employees;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Map;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -23,6 +25,23 @@ public class Employee {
 
     private LocalDate dateOfBirth;
 
+    @ElementCollection
+    @CollectionTable(name = "nicknames", joinColumns = {@JoinColumn(name = "depName"), @JoinColumn(name = "id")})
+    @Column(name = "nicknames")
+    private Set<String> nickNames;
+
+    @ElementCollection
+    @CollectionTable(name = "vacations", joinColumns = {@JoinColumn(name = "depName"), @JoinColumn(name = "id")})
+    @AttributeOverride(name = "startDate", column = @Column(name = "start_date"))
+    @AttributeOverride(name = "dayTaken", column = @Column(name = "daya"))
+    private Set<VacationEntry> vacationBookings;
+
+    @ElementCollection
+    @CollectionTable(name = "phone", joinColumns = {@JoinColumn(name = "depName"), @JoinColumn(name = "id")})
+    @MapKeyColumn(name = "phone_type")
+    @Column(name = "phone_number")
+    private Map<String, String> phoneNumber;
+
     public Employee() {
     }
 
@@ -38,15 +57,15 @@ public class Employee {
         this.dateOfBirth = dateOfBirth;
     }
 
-    @PostPersist
-    public void debugPersist() {
-        System.out.println(name + " " + id);
-    }
-
     public Employee(String depName, Long id, String name) {
         this.depName = depName;
         this.id = id;
         this.name = name;
+    }
+
+    @PostPersist
+    public void debugPersist() {
+        //System.out.println(name + " " + id);
     }
 
     public String getDepName() {
@@ -87,6 +106,30 @@ public class Employee {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<String> getNickNames() {
+        return nickNames;
+    }
+
+    public void setNickNames(Set<String> nickNames) {
+        this.nickNames = nickNames;
+    }
+
+    public Set<VacationEntry> getVacationBookings() {
+        return vacationBookings;
+    }
+
+    public void setVacationBookings(Set<VacationEntry> vacationBookings) {
+        this.vacationBookings = vacationBookings;
+    }
+
+    public Map<String, String> getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(Map<String, String> phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
