@@ -44,4 +44,13 @@ public class ActivityDao {
         entityManager.close();
         return activity;
     }
+
+    public Activity findActivityByIdWithLabels(long id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Activity activity = entityManager.createQuery("SELECT a FROM Activity a JOIN FETCH a.labels WHERE a.id = :id", Activity.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        entityManager.close();
+        return activity;
+    }
 }

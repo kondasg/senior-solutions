@@ -3,9 +3,9 @@
 * [x] Egyszerű mentés és lekérdezés JPA-val
 * [x] Architektúra és integrációs tesztelés
 * [x] Entitások konfigurálása
-* [ ] Azonosítógenerálás
-* [ ] Entitások életciklusa
-* [ ] Többértékű attribútumok
+* [x] Azonosítógenerálás
+* [x] Entitások életciklusa
+* [x] Többértékű attribútumok
 * [ ] Kapcsolatok
 * [ ] Több-több kapcsolatok
 * [ ] Entitások mapekben

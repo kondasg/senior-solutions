@@ -83,4 +83,15 @@ class ActivityDaoTest {
         assertEquals(modifyDescription, modActivity.getDesc());
         assertEquals(updatedAt.format(formatter), modActivity.getUpdatedAt().toString());
     }
+
+    @Test
+    void findActivityByIdWithLabelsTest() {
+        Activity activity = new Activity(LocalDateTime.of(2000, 1, 1, 10, 0, 0),
+                "Biciklizés újév napján", Activity.ActivityType.BIKING);
+        activity.setLabels(List.of("12%", "50km", "-10C"));
+        activityDao.saveActivity(activity);
+
+        Activity anotherActivity = activityDao.findActivityByIdWithLabels(activity.getId());
+        assertEquals(List.of("12%", "50km", "-10C"), anotherActivity.getLabels());
+    }
 }
