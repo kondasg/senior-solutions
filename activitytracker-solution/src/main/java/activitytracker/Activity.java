@@ -12,7 +12,9 @@ public class Activity {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "act_id_gen")
+    @TableGenerator(name = "act_id_gen", pkColumnName = "id_gen", valueColumnName = "id_val")
     private long id;
     @Column(name = "start_time", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime startTime;
