@@ -1,16 +1,16 @@
 package meetingroom;
 
+import lombok.AllArgsConstructor;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
+import java.util.stream.IntStream;
 
+@AllArgsConstructor
 public class JpaMeetingRoomsRepository implements MeetingRoomsRepository {
 
     private EntityManagerFactory entityManagerFactory;
-
-    public JpaMeetingRoomsRepository(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
 
     @Override
     public void save(String name, int width, int length) {
@@ -32,36 +32,55 @@ public class JpaMeetingRoomsRepository implements MeetingRoomsRepository {
 
     @Override
     public List<MeetingRoom> listReverse() {
-        return null;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        List<MeetingRoom> meetingRooms = entityManager.createQuery("SELECT m FROM MeetingRoom m ORDER BY m.name DESC",
+                MeetingRoom.class).getResultList();
+        entityManager.close();
+        return meetingRooms;
     }
 
     @Override
     public List<MeetingRoom> listEverySecond() {
-        return null;
-    }
+        List<MeetingRoom> meetingRooms = list();
 
-    @Override
-    public List<MeetingRoom> getAreas() {
-        return null;
+        return IntStream.range(0, meetingRooms.size())
+                .filter(i -> i % 2 != 0)
+                .mapToObj(meetingRooms::get)
+                .toList();
     }
 
     @Override
     public MeetingRoom findByName(String name) {
-        return null;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        MeetingRoom meetingRoom =
+                entityManager.createQuery("SELECT m FROM MeetingRoom m WHERE m.name LIKE :name", MeetingRoom.class)
+                .setParameter("name", name)
+                .getSingleResult();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return meetingRoom;
     }
 
     @Override
     public List<MeetingRoom> findByPattern(String pattern) {
-        return null;
-    }
-
-    @Override
-    public List<MeetingRoom> findByArea(int area) {
-        return null;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        List<MeetingRoom> meetingRooms =
+                entityManager.createQuery("SELECT m FROM MeetingRoom m WHERE m.name LIKE :pattern", MeetingRoom.class)
+                        .setParameter("pattern", "%" + pattern + "%")
+                        .getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return meetingRooms;
     }
 
     @Override
     public void deleteAll() {
-
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.createQuery("DELETE FROM MeetingRoom").executeUpdate();
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 }

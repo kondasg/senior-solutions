@@ -12,13 +12,9 @@ public interface MeetingRoomsRepository {
 
     List<MeetingRoom> listEverySecond();
 
-    List<MeetingRoom> getAreas();
-
     MeetingRoom findByName(String name);
 
     List<MeetingRoom> findByPattern(String pattern);
-
-    List<MeetingRoom> findByArea(int area);
 
     void deleteAll();
 }
