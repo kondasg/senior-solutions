@@ -3,7 +3,9 @@ package activitytracker;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "activities")
@@ -36,6 +38,9 @@ public class Activity {
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "activity")
     private List<TrackPoint> trackPoints;
+
+    @ManyToMany(mappedBy = "activities")
+    private Set<Area> areas = new HashSet<>();
 
     public Activity() {
     }
@@ -126,5 +131,13 @@ public class Activity {
 
     public void setTrackPoints(List<TrackPoint> trackPoints) {
         this.trackPoints = trackPoints;
+    }
+
+    public Set<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(Set<Area> areas) {
+        this.areas = areas;
     }
 }
