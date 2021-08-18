@@ -14,5 +14,13 @@ POST http://localhost:8080/api/accommodations/1/book
 Content-Type: application/json
 
 {
-  "numberOfPeople": 1230
+  "numberOfPeople": 1220
 }
+
+###
+
+GET http://localhost:8080/api/accommodations/11
+
+###
+
+DELETE http://localhost:8080/api/accommodations
