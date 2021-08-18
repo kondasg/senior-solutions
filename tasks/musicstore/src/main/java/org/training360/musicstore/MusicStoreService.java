@@ -2,18 +2,9 @@ package org.training360.musicstore;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.zalando.problem.Problem;
-import org.zalando.problem.Status;
 
 import java.lang.reflect.Type;
-import java.net.URI;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +25,12 @@ public class MusicStoreService {
 
     public List<InstrumentDTO> getInstruments(Optional<String> brand, Optional<Double> price) {
         Type targetListType = new TypeToken<List<InstrumentDTO>>() {}.getType();
+        List<Instrument> filtered = instruments.stream()
+                .filter(instrument -> brand.isEmpty() || instrument.getBrand().equals(brand.get()))
+                .filter(instrument -> price.isEmpty() || instrument.getPrice() == price.get())
+                .collect(Collectors.toList());
 
-        return modelMapper.map(instruments, targetListType);
+        return modelMapper.map(filtered, targetListType);
     }
 
     public void deleteAllInstruments() {

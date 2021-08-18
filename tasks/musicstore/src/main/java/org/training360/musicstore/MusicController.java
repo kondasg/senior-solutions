@@ -25,7 +25,9 @@ public class MusicController {
     }
 
     @GetMapping
-    public List<InstrumentDTO> getInstruments(@RequestParam Optional<String> brand, @RequestParam Optional<Double> price) {
+    public List<InstrumentDTO> getInstruments(
+            @RequestParam(name = "brand") Optional<String> brand,
+            @RequestParam(name = "price") Optional<Double> price) {
         return musicStoreService.getInstruments(brand, price);
     }
 
