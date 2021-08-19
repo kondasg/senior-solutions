@@ -76,11 +76,11 @@ public class OrderControllerRestIT {
 
     @Test
     void testReadyForShipping(){
-        template.postForObject("/api/orders",new CreateOrderCommand("DK776ZH"),OrderDTO.class);
+        OrderDTO o = template.postForObject("/api/orders",new CreateOrderCommand("DK776ZH"),OrderDTO.class);
 
-        template.put("/api/orders/1/shipping",new ShippingCommand(2000));
+        template.put("/api/orders/" + o.getId() + "/shipping",new ShippingCommand(2000));
 
-        OrderDTO result = template.getForObject("/api/orders/1",OrderDTO.class);
+        OrderDTO result = template.getForObject("/api/orders/" + o.getId(),OrderDTO.class);
 
         assertEquals(LocalDate.now(),result.getShippingDate());
         assertEquals(2000,result.getShippingPrice());
@@ -89,11 +89,11 @@ public class OrderControllerRestIT {
 
     @Test
     void testShippingIncome(){
-        template.postForObject("/api/orders",new CreateOrderCommand("DK776ZH"),OrderDTO.class);
-        template.postForObject("/api/orders",new CreateOrderCommand("DK976ZH"),OrderDTO.class);
+        OrderDTO o1 = template.postForObject("/api/orders",new CreateOrderCommand("DK776ZH"),OrderDTO.class);
+        OrderDTO o2 = template.postForObject("/api/orders",new CreateOrderCommand("DK976ZH"),OrderDTO.class);
 
-        template.put("/api/orders/1/shipping",new ShippingCommand(2000));
-        template.put("/api/orders/2/shipping",new ShippingCommand(3000));
+        template.put("/api/orders/" + o1.getId() + "/shipping",new ShippingCommand(2000));
+        template.put("/api/orders/" + o2.getId() + "/shipping",new ShippingCommand(3000));
 
        int result = template.getForObject("/api/orders/shippingIncome",Integer.class);
 
