@@ -104,11 +104,11 @@ public class AccommodationControllerRestIT {
 
     @Test
     void testCreateNewReservation() {
-        template.postForObject("/api/accommodations",
+        AccommodationDTO ac = template.postForObject("/api/accommodations",
                 new CreateAccommodationCommand("Hotel Cool","New York",1200,300),
                 AccommodationDTO.class);
 
-       AccommodationDTO result = template.postForObject("/api/accommodations/1/book", new CreateReservationCommand(5), AccommodationDTO.class);
+       AccommodationDTO result = template.postForObject("/api/accommodations/" + ac.getId() + "/book", new CreateReservationCommand(5), AccommodationDTO.class);
 
 
         assertEquals(1195, result.getAvailableCapacity());
@@ -190,11 +190,11 @@ public class AccommodationControllerRestIT {
 
     @Test
     void reserveWithInvalidNumber(){
-        template.postForObject("/api/accommodations",
+        AccommodationDTO ac = template.postForObject("/api/accommodations",
                 new CreateAccommodationCommand("Hotel Awesome","Budapest",120,30),
                 AccommodationDTO.class);
 
-        Problem result = template.postForObject("/api/accommodations/1/book", new CreateReservationCommand(121), Problem.class);
+        Problem result = template.postForObject("/api/accommodations/" + ac.getId() + "/book", new CreateReservationCommand(121), Problem.class);
 
 
         assertEquals(URI.create("accommodation/bad-reservation"),result.getType());

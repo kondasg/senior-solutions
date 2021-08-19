@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccommodationDTO {
 
+    private Long id;
     private String name;
     private String city;
     private int availableCapacity;

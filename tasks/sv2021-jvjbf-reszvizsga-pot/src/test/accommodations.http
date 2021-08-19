@@ -10,16 +10,29 @@ Content-Type: application/json
 
 ###
 
+GET http://localhost:8080/api/accommodations
+
+###
+
+GET http://localhost:8080/api/accommodations?city=budapest
+
+###
+
 POST http://localhost:8080/api/accommodations/1/book
 Content-Type: application/json
 
 {
-  "numberOfPeople": 1220
+  "numberOfPeople": 122
 }
 
 ###
 
-GET http://localhost:8080/api/accommodations/11
+PUT http://localhost:8080/api/accommodations/1
+Content-Type: application/json
+
+{
+  "price": 1222
+}
 
 ###
 

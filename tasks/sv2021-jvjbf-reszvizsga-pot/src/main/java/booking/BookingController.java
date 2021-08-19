@@ -1,5 +1,6 @@
 package booking;
 
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -8,13 +9,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/accommodations")
+@AllArgsConstructor
 public class BookingController {
 
-    private BookingService bookingService;
-
-    public BookingController(BookingService bookingService) {
-        this.bookingService = bookingService;
-    }
+    //private BookingService bookingService;
+    private BookingServiceDb bookingService;
 
     @DeleteMapping
     public void deleteAllAccommodations() {
